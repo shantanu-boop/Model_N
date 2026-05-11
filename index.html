@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model N Wiki</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1, #01579b);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav {
+            background: #263238;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav ul li {
+            margin: 5px 15px;
+        }
+
+        .nav ul li a {
+            color: #b0bec5;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav ul li a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #1a237e;
+        }
+
+        .section h2 {
+            color: #1a237e;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8eaf6;
+        }
+
+        .section h3 {
+            color: #283593;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section h4 {
+            color: #3949ab;
+            font-size: 1.15em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .section ul, .section ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section ul li, .section ol li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        /* Definition Styles */
+        .definition {
+            background: #e8eaf6;
+            border-left: 4px solid #3f51b5;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .definition strong {
+            color: #1a237e;
+        }
+
+        /* Table Styles */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        table thead {
+            background: linear-gradient(135deg, #1a237e, #283593);
+            color: white;
+        }
+
+        table thead th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        table tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s ease;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+
+        table tbody tr:hover {
+            background-color: #e8eaf6;
+        }
+
+        table tbody td {
+            padding: 12px 16px;
+            vertical-align: top;
+        }
+
+        /* Badge Styles */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .badge-question {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .badge-issue {
+            background: #fce4ec;
+            color: #c62828;
+        }
+
+        /* Example Box */
+        .example-box {
+            background: #fff3e0;
+            border: 1px solid #ffcc02;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .example-box::before {
+            content: "Example: ";
+            font-weight: 700;
+            color: #e65100;
+        }
+
+        /* Key Challenges List */
+        .challenges-list {
+            list-style: none;
+            margin-left: 0 !important;
+        }
+
+        .challenges-list li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f1f8e9;
+            border-left: 3px solid #4caf50;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .challenges-list li::before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        /* Government Pricing Types */
+        .pricing-type {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .pricing-type strong {
+            color: #1a237e;
+            font-size: 1.05em;
+        }
+
+        /* Reports List */
+        .reports-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            list-style: none;
+            margin-left: 0 !important;
+        }
+
+        .reports-list li {
+            background: #e8eaf6;
+            padding: 12px 16px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            color: #283593;
+        }
+
+        /* Footer */
+        .footer {
+            background: #263238;
+            color: #b0bec5;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .reports-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Modal N Wiki</h1>
+        <p>Revenue Management System - Comprehensive Knowledge Base</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <ul>
+            <li><a href="#query-page">How to Query Page</a></li>
+            <li><a href="#revenue-overview">Revenue Management Overview</a></li>
+            <li><a href="#contract-management">Contract Management</a></li>
+            <li><a href="#rebates">Rebates</a></li>
+            <li><a href="#chargeback">Chargeback</a></li>
+            <li><a href="#government-pricing">Government Pricing</a></li>
+            <li><a href="#reports">Reports</a></li>
+            <li><a href="#how-to-queries">HOW To Queries</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- How to Query Page -->
+        <section class="section" id="query-page">
+            <h2>How to Query Page</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Answer Key</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>What additional steps are required when creating a GPO customer, compared with creating an Independent customer, and why are those steps important?</td>
+                            <td>Creating a <strong>GPO customer</strong> follows the same initial steps as creating an <strong>Independent customer</strong>: navigate to <strong>Customers &gt; New Account</strong>, select the customer type, enter the <strong>Customer Name</strong>, add <strong>Contacts and Addresses</strong>, add <strong>Class of Trade</strong>, associate <strong>Organizations</strong>, and save. However, for a GPO customer, additional steps are required in <strong>Manage Membership</strong>: click <strong>Edit</strong>, click <strong>Add</strong>, search for and add <strong>members with different COTs</strong>, <strong>Publish Membership</strong>, and then <strong>Save</strong>. These steps are important because GPO customers must include and manage member customers, and without publishing the membership, the GPO setup remains incomplete.</td>
+                        </tr>
+                        <tr>
+                            <td>If GPO members are not visible in the customer login, how would you troubleshoot the issue and what actions would you take to resolve it?</td>
+                            <td>First, check whether the <strong>GPO members were actually added</strong>. To troubleshoot, go to <strong>Customer</strong>, search for the <strong>GPO</strong>, and review the <strong>list of members</strong>. If members are missing, open the GPO in <strong>Edit</strong> mode, click <strong>Add</strong>, enter the required <strong>Customer IDs/Names</strong>, and then <strong>Save</strong>. Once the changes are saved, the <strong>GPO members should populate and become visible in the customer login</strong>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Revenue Management Overview -->
+        <section class="section" id="revenue-overview">
+            <h2>Revenue Management Overview</h2>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Question</th>
+                            <th>Answer Key</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Why is <strong>government pricing</strong> considered critical for pharmaceutical manufacturers, and what are two major risks of noncompliance mentioned in the document?</td>
+                            <td>Government pricing is critical because participation in government programs allows manufacturers to sell products through programs administered by agencies such as CMS, VA, and PHS. It also matters because participation in one program can require participation in others. Two major risks of noncompliance are <strong>recurring internal and external audits</strong> (for example, by the Office of Inspector General or Department of Justice) and <strong>significant financial penalties</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Compare <strong>chargebacks</strong> and <strong>rebates</strong> by explaining how each works, who is involved, and when the manufacturer pays money back.</td>
+                            <td>A <strong>rebate</strong> is an amount returned to a customer based on <strong>sales or utilization</strong>. It is usually tied to contracts with purchasers such as hospitals or with payers such as insurance plans and pharmacy benefit managers. The manufacturer pays the rebate after sales thresholds are met or utilization data is reported. A <strong>chargeback</strong> occurs when a manufacturer sells a product to a wholesaler at a higher price than the price negotiated with the end customer. The wholesaler then submits a chargeback claim so the manufacturer reimburses the <strong>price difference</strong>. In short, rebates reward volume or utilization, while chargebacks compensate wholesalers for contracted lower end-customer pricing.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Model N</h3>
+            <div class="definition">
+                <p><strong>Model N</strong> - Model N is a suite of revenue management applications designed to support both the pharmaceutical and the medical device industries. Model N also provides a shared platform for price, catalogs, workflow, alerts, membership, analytics, and integration. It is complementary to CRM and ERP software. It has specified areas designed to meet both the Commercial and Regulatory needs of businesses.</p>
+            </div>
+
+            <h3>Revenue Management</h3>
+            <div class="definition">
+                <p><strong>Revenue Management</strong> - Revenue Management empowers organizations to interface together and automate Pricing, Contracts, Settlements, Government Pricing and Medicaid Claims Management. Revenue management limits the danger of regulatory non-compliance and dispose of revenue spillage.</p>
+            </div>
+
+            <p>"Model N Flex" &amp; "Model N Powered by N" are two major comprehensive solutions for managing contracts, rebates, chargebacks, Medicaid and government pricing for the life sciences industry.</p>
+
+            <h3>Key Challenges Solved by Revenue Management System</h3>
+            <ul class="challenges-list">
+                <li>Easy access contract information</li>
+                <li>Central storage of all contract information</li>
+                <li>Strategic price enforcement in the field</li>
+                <li>Swift offer-to-contract cycle</li>
+                <li>Better maintenance of membership and eligibility information</li>
+                <li>Easily auditable</li>
+                <li>Compliance tracking</li>
+            </ul>
+        </section>
+
+        <!-- Contract Management -->
+        <section class="section" id="contract-management">
+            <h2>Contract Management</h2>
+
+            <div class="definition">
+                <p><strong>Contract Management</strong> - Contract management is a complete process that includes pre-contract analysis, contract authoring, contract execution and post-contract analysis. Thus Contract management systems provide functionality to automate and support the complete contract life cycle starting from authoring to review, approval, execution and post approval changes. These systems generally provide standard templates for authoring, workflow based approval and a document repository. Apart from contract authoring it also provides functionality for supporting commercial aspects of contracts such as pricing, prescription-level validation, rebates, charge-backs and incentives.</p>
+            </div>
+
+            <p>Contract is a binding between the pharmaceutical company and the other organization which could be a hospital or a Government Agency. This contract provides the details of the offers being made to the organization by the pharmaceuticals company if the organization helps in enhancing sales of the agreed products. The contract is generally signed by the two parties for a fixed term.</p>
+
+            <h3>Types of Contracts in Pharmaceutical Industry</h3>
+            <ul>
+                <li>Contracts with reimbursement institutions</li>
+                <li>Contracts with Hospitals/Pharmacy</li>
+                <li>Contracts with State Government Agencies</li>
+            </ul>
+
+            <h4>Contract with Reimbursement Institutions</h4>
+            <p>Typically, these contracts are signed for Long Term and/or for Chronic Diseases like Blood Pressure etc. The high-level process for contract management between Pharmaceutical Organization and Reimbursement institutions is depicted below.</p>
+
+            <h4>Contract with State Government Agencies</h4>
+            <p>US Government has developed several programs, to bring the costly medical care facility to the reach of the citizens, especially the aged, the disabled and for the low income group. Contracts are also developed between drug manufacturers and the departments of these programs. Medicaid Drug Rebate is one such program designed to lower the cost of prescription drugs to the citizens participating in the program.</p>
+
+            <h3>Stages in a Contract Management Cycle</h3>
+            <p><strong>Stage 1 - Pre-contract Analysis:</strong> In this stage companies need to understand downstream impacts to the impending agreement (e.g. Best Price implications).</p>
+            <p><strong>Stage 2 - Authoring:</strong> In this stage, contract is composed and is circulated to the different stakeholders. The final proposal/contract is then placed for negotiation and revisions if any are made. The contract is then routed for approval, inked and stored in some type of repository.</p>
+            <p><strong>Stage 3 - Execution &amp; Administration:</strong> Once the contract is finalized, the process of entry, validation and verification of contract information is started as a part of executing the contract. Next stage is the administration of the contract which monitors the compliance to the contractual terms and conditions in the deals being processed and resolving issues arising out of it.</p>
+        </section>
+
+        <!-- Rebates -->
+        <section class="section" id="rebates">
+            <h2>Rebates</h2>
+
+            <div class="definition">
+                <p><strong>Rebate</strong> - Rebate is amount returned to customer based on sales or utilization. Rebates based on sales are normally in concurrence with customers who purchase from the manufacturer. Utilization rebates are rebates based on utilization or prescription data. They are normally in concurrence with customers who reimburse pharmacies for prescriptions.</p>
+            </div>
+
+            <h3>Types of Rebate Programs</h3>
+
+            <h4>Institutional Rebates</h4>
+            <p>Institutional rebates are rebates based on sales. They are typically in agreements with customers who purchase directly/indirectly from the manufacturer (hospitals).</p>
+            <div class="example-box">
+                If you purchase more than 100,000 units of this product from me in a quarter, I'm going to pay you a 10% rebate of all your purchases.
+            </div>
+
+            <h4>Utilization Based Rebates</h4>
+            <p>Utilization rebates are rebates based on utilization. Utilization data is prescription data. They are typically in agreements with customers who reimburse pharmacies for prescriptions (health insurance plans, pharmacy benefit managers).</p>
+            <div class="example-box">
+                For every unit dispensed to a patient at a pharmacy that is paid for by your insurance plan, I'm going to pay you 1 cent.
+            </div>
+        </section>
+
+        <!-- Chargeback -->
+        <section class="section" id="chargeback">
+            <h2>Chargeback</h2>
+
+            <div class="definition">
+                <p><strong>Chargeback</strong> - Chargeback occurs when the manufacturer sells a product at a higher price to the wholesaler than the price they have set with the end customer. The wholesaler then submits a chargeback to the manufacturer so they can recuperate the amount lost in the transaction.</p>
+            </div>
+
+            <h3>Chargeback Process</h3>
+            <p>Chargeback process represents a specific business need of the pharmaceutical industry in US. Large hospitals and pharmacy chains often negotiate price directly with drug manufacturers but receive delivery through the wholesalers. To reimburse the wholesaler for the price differential between normal selling price and the contracted selling price awarded to the hospital / pharmacy, the manufacturer agrees to credit the wholesaler with the difference, known as "chargeback".</p>
+        </section>
+
+        <!-- Government Pricing -->
+        <section class="section" id="government-pricing">
+            <h2>Government Pricing</h2>
+
+            <div class="definition">
+                <p><strong>Government Pricing</strong> - Government Pricing is a term that includes a manufacturer's commitment to calculate and report various pricing factors and satisfy other commanded commitments required for participation in various government programs to sell their manufactured products. The requirements are mandated by Federal and State government legislation and administered by agencies such as Center for Medicare and Medicaid Services (CMS), Department of Veterans Affairs (VA) and Public Health Services (PHS). The government utilizes the prices reported by the manufacturer to set the government costs, reimburse pharmacies as well as calculate rebates owed back from the manufacturer.</p>
+            </div>
+
+            <h3>Government Pricing Need</h3>
+            <ol type="a">
+                <li>Government Markets represent a significant and growing percentage of the Annual Prescription Drug Spend</li>
+                <li>Participation in one program mandates participation in other government programs; example Medicaid participation requires PHS and VA participation</li>
+                <li>Participation in Government Programs makes a manufacturer a 'Government Contractor'. As a Government Contractor, manufacturers have several reporting obligations; noncompliance can result in recurring audits both internal and external (Office of Inspector General, Department of Justice) and result in significant financial penalties.</li>
+            </ol>
+
+            <h3>Government Pricing Types</h3>
+
+            <div class="pricing-type">
+                <p><strong>Medicaid Average Manufacturer Price ("AMP"):</strong> The average price paid to the manufacturer by wholesalers for drugs distributed to the retail pharmacy class of trade, after deducting prompt pay discounts. AMP requires being submitted monthly as well as quarterly.</p>
+            </div>
+
+            <div class="pricing-type">
+                <p><strong>Best Price ("BP"):</strong> The lowest price at which the manufacturer sells the Covered Outpatient Drug to any purchaser in the United States in any pricing structure, in the same quarter for which the AMP is computed. BP requires to be submitted quarterly.</p>
+            </div>
+
+            <div class="pricing-type">
+                <p><strong>Medicare Average Sales Price ("ASP"):</strong> This is the quotient of "the net sales revenue from all purchasers in the United States that quarter, other than customers exempt from the determination of best price under the Medicaid rebate statute", divided by "the number of units of that National Drug Code ("NDC") sold that quarter, other than customers exempt from the determination of Best Price under the Medicaid Rebate statute." ASP requires to be submitted quarterly.</p>
+            </div>
+
+            <div class="pricing-type">
+                <p><strong>Non-Federal Average Manufacturer Price ("Non-FAMP"):</strong> This is the "weighted average price on a single form and dosage unit of drug that is paid by wholesalers in the United States to the manufacturer, taking into account any cash discounts or similar price reductions during that period" (as designated by the Secretary of Health and Human Services), excluding sales to the federal government. Non-FAMP requires to be submitted quarterly and annually.</p>
+            </div>
+
+            <div class="pricing-type">
+                <p><strong>Federal Ceiling Price ("FCP"):</strong> This is the maximum price a manufacturer can legally charge the Department of Veteran Affairs (VA), Department of Defense (DOD), PHS (this includes Indian Health Services (IHS)), and the Coast Guard (CG) for a branded (covered) drug. These federal agencies are also referred to as the "Big 4". FCP must be at least 24 percent below the non-Federal average manufacturer price. FCP prices are not publicly available. FCP requires to be submitted annually.</p>
+            </div>
+
+            <div class="pricing-type">
+                <p><strong>Public Health Service (340b pricing) ("PHS"):</strong> The PHS (340B) calculation is conducted at the Medicaid dispensable unit (NDC-9) level and converted to the saleable package (NDC-11) level. The PHS (340B) price is calculated each quarter using Medicaid data for a period two calendar quarters prior to the effective calendar quarter of the PHS (340B) price. Example: 3rd Calendar Qtr PHS (340B) Price utilizes 1st Calendar Quarter AMP and Medicaid Rebate per Unit ("RPU") / Unit Rebate Amount ("URA"). PHS needs to be calculated quarterly.</p>
+            </div>
+
+            <div class="pricing-type">
+                <p><strong>Weighted Average - Wholesaler Acquisition Cost (WAWAC):</strong> Wholesaler Acquisition Cost is essentially the List Price for a product. WAWAC for a time period when List Price changes will be the sum of dollars for all direct transactions to the wholesaler classes of trade and divide by the summed number of units for those same transactions for the specified time period. WAWAC requires to be computed on a Monthly, Quarterly and Annual basis.</p>
+            </div>
+        </section>
+
+        <!-- Reports -->
+        <section class="section" id="reports">
+            <h2>Reports</h2>
+
+            <div class="definition">
+                <p><strong>Reports</strong> - There are various reports that need to be generated based on government guidelines and for analytics purpose.</p>
+            </div>
+
+            <h3>Key Reports Generated in Revenue Management System</h3>
+            <ul class="reports-list">
+                <li>Customer Report</li>
+                <li>Contract Report</li>
+                <li>Pricing Report</li>
+                <li>Direct/Indirect Sale Report</li>
+                <li>Chargeback Report</li>
+                <li>Rebate Report</li>
+                <li>Compliance Report</li>
+            </ul>
+        </section>
+
+        <!-- HOW To Queries -->
+        <section class="section" id="how-to-queries">
+            <h2>HOW To Queries</h2>
+
+            <!-- User - Customer - Membership -->
+            <h3>User - Customer - Membership</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Sub Area</th>
+                            <th>Question / Issue</th>
+                            <th>Description</th>
+                            <th>Root Cause, Troubleshooting Steps and Solution / Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Users</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create two users associated to Org.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Administration &gt; Users and Organizations &gt; Users.<br>2. Click on New User.<br>3. Enter User Name and Organization.<br>4. Navigate to Roles. Associate Roles to user.<br>5. Navigate to Associated Organizations. Associate Organizations to user.<br>6. Navigate to Preferences. Activate Account.</td>
+                        </tr>
+                        <tr>
+                            <td>Products</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create Product Catalog and add items to the catalog.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Upload Product XML via 'CategoryFromXml' Data Flow.<br>2. Once loaded, verify the correctness of data uploaded.</td>
+                        </tr>
+                        <tr>
+                            <td>Org</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create two Orgs with following details: One: Org 1, being directly associated to Root, i.e, with Parent Organization as Root. Second: Org 2, being the child of Org 1, i.e, with Parent Organization as Org1.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Administration &gt; Users and Organizations &gt; Organizations.<br>2. Click on New Organization.<br>3. Enter Organization ID and Parent Organization Name (Root). Click OK.<br>4. Enter Organization Name (Org 1). Select Locale, and Time Zone. Associate Users.<br>5. Click Save.<br>6. Create another Organization (Org2) with the above created Organization (Org1) as Parent Org.</td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a customer with Customer Type as Independent.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Customers &gt; New Account.<br>2. Select Customer Type as Independent. Click OK.<br>3. Enter Customer Name.<br>4. Navigate to Contacts and Addresses. Enter details.<br>5. Navigate to Class of Trade. Add COT.<br>6. Navigate to Associated Organizations. Associate Organizations to customer.<br>7. Click Save.</td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td>Membership (GPO)</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a Customer with Customer Type as GPO. Members belonging to different COTs should be added to the GPO.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Customers &gt; New Account.<br>2. Select Customer Type as GPO. Click OK.<br>3. Enter Customer Name.<br>4. Navigate to Contacts and Addresses. Enter details.<br>5. Navigate to Class of Trade. Add COT.<br>6. Navigate to Associated Organizations. Associate Organizations to customer.<br>7. Navigate to Manage Membership. Click Edit. Click Add. Search and add members with different COTs. Publish Membership.<br>8. Click Save.</td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td>Membership (Wholesaler)</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a Customer with Customer Type as Wholesaler.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Customers &gt; New Account.<br>2. Select Customer Type as Wholesaler. Click OK.<br>3. Enter Customer Name.<br>4. Navigate to Contacts and Addresses. Enter details.<br>5. Navigate to Class of Trade. Add COT.<br>6. Navigate to Associated Organizations. Associate Organizations to customer.<br>7. Click Save.</td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td>GPO</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to see GPO Members in Customer Login</td>
+                            <td><strong>Root Cause:</strong> GPO Members not added.<br><strong>Troubleshooting Steps:</strong> Go to customer and search for GPO. See the list of Members.<br><strong>Solution / Answer:</strong><br>1. Go to Customer.<br>2. Enter &lt;&lt;GPO&gt;&gt; name and click on search.<br>3. Click on Edit.<br>4. Click on "Add" and Enter Customer IDs/Names want to add.<br>5. Click on Save.<br>6. Now GPO members will be populating.</td>
+                        </tr>
+                        <tr>
+                            <td>Product</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to see Products while contract creation.</td>
+                            <td><strong>Root Cause:</strong> Product not properly uploaded in the system.<br><strong>Troubleshooting Steps:</strong> Go to Product and search for the &lt;&lt;Product ID&gt;&gt;<br><strong>Solution / Answer:</strong><br>1. Create a new Product XML and enter Product details in the same.<br>2. Upload Product XML via 'CategoryFromXml' Data Flow.<br>3. Once loaded, verify the correctness of data uploaded.</td>
+                        </tr>
+                        <tr>
+                            <td>Users</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>User account is locked</td>
+                            <td><strong>Solution / Answer:</strong><br>1. Go to Users page and Search for the User.<br>2. Click on Reset Password for the user.<br>3. Select CheckBox to send temporary password to user.<br>4. Click on Save.</td>
+                        </tr>
+                        <tr>
+                            <td>User</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to update Contract Approver role for a user</td>
+                            <td><strong>Root Cause:</strong> Same User can't be a contract author and approver.<br><strong>Troubleshooting Steps:</strong> Go to Users and Search for the &lt;&lt;User&gt;&gt;. Check if Contract Author Role is tagged to the user.<br><strong>Solution / Answer:</strong><br>1. Go to Users and Search for the given &lt;&lt;User&gt;&gt;.<br>2. Uncheck Contract Author role for the user.<br>3. Select Contract Approver Role for the user.<br>4. Click on Save.</td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to add Product as an "Item" in a contract.</td>
+                            <td><strong>Root Cause:</strong> Product type is not defined as an item but as a box.<br><strong>Troubleshooting Steps:</strong> Go to product and search for &lt;&lt;Product Type&gt;&gt;. Check if Product type is defined as an Item or a Box.<br><strong>Solution / Answer:</strong><br>1. Go to Product.<br>2. Search for Product and click on Edit.<br>3. Change Product Type as an "Item".<br>4. Click on Save.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Contract Management HOW To -->
+            <h3>Contract Management</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Sub Area</th>
+                            <th>Question / Issue</th>
+                            <th>Description</th>
+                            <th>Root Cause, Troubleshooting Steps and Solution / Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Contract</td>
+                            <td>Independent Direct Contract</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create an independent direct contract for an Org.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps to create an independent direct contract:<br>1. Navigate to Contracts &gt; New contract.<br>2. Select Organization, Domain, and Sub Type. Click OK.<br>3. Select Customer ID. Enter Contract Name and Contract Term.<br>4. Navigate to Price Programs. Add New Price Program. Specify Business Segment, Price Program Name and Pricing Method. Click OK. Open Price Program created and select Price List.<br>5. Navigate to Products and Pricing. Add Products (the ones added in the price list earlier) and define contract prices for each product.<br>6. Navigate to Price Program Commitments. Add commitments with Start Date, End Date and Tracking Date.<br>7. Save. Update Pricing Alerts. Validate. Submit for Approval. Release. Customer Accept. Implement.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>Independent Indirect Contract</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create an independent indirect contract for an Org.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps to create an independent indirect contract:<br>1. Navigate to Contracts &gt; New contract.<br>2. Select Organization, Domain, and Sub Type. Click OK.<br>3. Select Customer ID. Enter Contract Name and Contract Term.<br>4. Navigate to Price Programs. Add New Price Program. Specify Business Segment, Price Program Name and Pricing Method. Click OK. Open Price Program created and select Price List.<br>5. Navigate to Products and Pricing. Add Products and define contract prices for each product.<br>6. Navigate to Rebate Programs. Add New Rebate Program. Specify Program Name and Program Type. Click OK. Open Rebate Program created and enter Accrual Processing Information.<br>7. Navigate to Products and Market Basket. Include Product Group.<br>8. Navigate to Tier Bases and Benefits. Add Tiers and their corresponding Benefits.<br>9. Navigate to Wholesalers. Add a wholesaler.<br>10. Navigate to Price Program Commitments. Add commitments with Start Date, End Date and Tracking Date.<br>11. Navigate to Rebate Program Commitments. Add commitments with Participation Type and Participation Date.<br>12. Save. Update Pricing Alerts. Validate. Submit for Approval. Release. Customer Accept. Implement.<br>13. Navigate to Bid Award IDs to verify Bid Award ID is generated.<br>14. Navigate to Contract Tasks section in left panel. Click 'Generate Nightly Bid Awards' which will capture and store all data related to customers, items, and prices for the contract.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>GPO Contract</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a GPO contract for an Org with customer type as "Direct/Indirect"</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Contracts &gt; New contract.<br>2. Select Organization, Domain, Sub Type and Distribution Method. Click OK.<br>3. Select Customer ID. Enter Contract Name and Contract Term.<br>4. Navigate to Price Programs. Add New Price Program. Specify Business Segment, Price Program Name and Pricing Method. Click OK. Open Price Program created and select Price List.<br>5. Navigate to Products and Pricing. Add Products and define contract prices for each product.<br>6. Navigate to Rebate Programs. Add New Rebate Program. Specify Program Name and Program Type. Click OK. Open Rebate Program created and enter Accrual Processing Information.<br>7. Navigate to Products and Market Basket. Include Product Group.<br>8. Navigate to Tier Bases and Benefits. Add Tiers and their corresponding Benefits.<br>9. Navigate to Price Program Commitments. Add commitments with Start Date, End Date and Tracking Date.<br>10. Navigate to Rebate Program Commitments. Add commitments with Participation Type and Participation Date.<br>11. Save. Update Pricing Alerts.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to validate and implement a contract.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps to validate and implement a contract:<br>1. Navigate to Contracts.<br>2. Search for contract in Draft status. Open Contract.<br>3. Click Validate to check for any errors in contract.<br>4. Click Submit to submit the contract for approval. Select an Approval Route. Take 'Accept' action. Click Send.<br>5. Click Release to release the contract for customer review.<br>6. Click Customer Accept to accept the contract on behalf of customer.<br>7. Click Implement to finally implement the contract.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a Group Direct / In-direct type of Contract (for the GPO Customer) with a Product Group having Tiered Pricing Method, 2 Tiers based on Volume, quarterly payment frequency, Incentive Rebate Program, and Admin Fee Program.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Create New Contract with GPO<br>2. In the Pricing Program select the Tiered Pricing Method, Volume tier basis, frequency as quarterly<br>3. Include the products and add Pricing commitments<br>4. Add Incentive Rebate Program Tier Component as volume and benefit as Amt/unit<br>5. Add AdminFee Program (Flat) and add % of benefit component<br>6. Add Program commitments for Incentive Rebate and AdminFee programs (Committing GPO with Group commitment) and implement the contract.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>Price Program</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to add product in an independent contract.</td>
+                            <td><strong>Root Cause:</strong> Price is not defined in pricing module for the product.<br><strong>Troubleshooting Steps:</strong> Go to Pricing module and search for Active prices for that product.<br><strong>Solution / Answer:</strong><br>1. Navigate to Pricing.<br>2. Search for the Product.<br>3. Define Price for that particular product and click on Save.<br>4. Go back to contract and now user should be able to add the product for independent contract.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>Customer type</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to add Customer (Trading Partner) for Contract</td>
+                            <td><strong>Root Cause:</strong> The contract type defined is Direct.<br><strong>Troubleshooting Steps:</strong> Update contract and change contract type from 'Direct' to "Direct/Indirect" both.<br><strong>Solution / Answer:</strong><br>1. Amend the contract.<br>2. Go to Contract Type.<br>3. Change Contract Type to "Direct/Indirect".<br>4. Click on Save.</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td>Program Commitments</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to add GPO member &lt;&lt;Member1&gt;&gt; for a particular Price Program</td>
+                            <td><strong>Root Cause:</strong> &lt;&lt;Member1&gt;&gt; is not eligible for GPO contracts for contract duration.<br><strong>Troubleshooting Steps:</strong> Go to Membership and add that member under GPO for that contract duration.<br><strong>Solution / Answer:</strong><br>1. Go to Membership.<br>2. Search for &lt;&lt;Member1&gt;&gt;<br>3. Update &lt;&lt;Member1&gt;&gt; eligibility for contracts for contract duration.<br>4. Click on Save.<br>5. Go to Contracts and search for the contract.<br>6. Go to Price Program Commitment.<br>7. Now the Member1 will be available to be added.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pricing HOW To -->
+            <h3>Pricing</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Sub Area</th>
+                            <th>Issue / Question</th>
+                            <th>Description</th>
+                            <th>Root Cause, Troubleshooting Steps and Solution / Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>Price List</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a Price List for specific type of customers of manufacturer for a specific period of time?</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Pricing &gt; New price list.<br>2. Select Organization and Price List Type. Click OK.<br>3. Enter Price List Name and Term.<br>4. Navigate to Products and Pricing. Add Products to Price List and define prices for each product.<br>5. Save, Submit and Activate Price List.</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>Price List</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create a Price List for Wholesalers for a specific period of time.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Upload Price List XML via 'PriceListFromXml' Data Flow.<br>2. Once loaded, verify the correctness of data uploaded.</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>Price Floor</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to define price thresholds for products so that approval is required if price go below the threshold limit.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Pricing &gt; New price floor.<br>2. Select Organization. Enter Price Floor Name and Effective Dates. Click OK.<br>3. Select the Base Price List as the one created above.<br>4. Navigate to Approval Levels. Add Levels and their corresponding Approvers.<br>5. Navigate to Products and Pricing. Add Products to the Price Floor and define floor prices for each product.<br>6. Navigate to Qualifications. Add the customer under 'Named Customer' Qualifications.<br>7. Save, Submit and Activate Price Floor.</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>Price Monitoring</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to monitor prices of a Contract with regards to the Commercial Price Floor.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Contracts &gt; Price Monitoring.<br>2. Enter Contract Number. Click Search to get all alerts for this contract.</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>Price Lookup</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to determine what price a customer should pay for a given product on a given day.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Pricing &gt; Price Lookup.<br>2. Enter Product, Customer and Organization for which Price Lookup is required. Click Search.<br>3. The result for this contract should be in bold which indicates that the price is resolved from this contract.</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to view WAC Price for product for contract</td>
+                            <td><strong>Root Cause:</strong> WAC price is not available for the given date.<br><strong>Troubleshooting Steps:</strong> Go to Pricing and Search for the Price for the Product for the given date.<br><strong>Solution / Answer:</strong><br>1. Create a New Price List XML.<br>2. Upload Price List XML via 'PriceListFromXml' Data Flow.<br>3. Once loaded, verify the correctness of data uploaded.</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>In Price LookUp getting multiple prices for same contract for same Product, Customer and Organization combination.</td>
+                            <td><strong>Troubleshooting Steps:</strong> Search in given contract in product and pricing area and look for the prices of that product.<br><strong>Solution / Answer:</strong> The issue is arising because for the same contract for same Product, Customer and Organization combination there are multiple prices for different set of dates.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Rebates & Chargebacks HOW To -->
+            <h3>Rebates &amp; Chargebacks</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Sub Area</th>
+                            <th>Issue / Question</th>
+                            <th>Description</th>
+                            <th>Root Cause, Troubleshooting Steps and Solution / Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to verify a rebate program and activate the program as a Rebate Analyst</td>
+                            <td><strong>Solution / Answer:</strong> Please follow below steps:<br>1. Click on Rebates and Fee &gt; Institutional Rebate Programs<br>2. Enter the contract ID and search. Incentive rebate and Admin Fee programs will be displayed<br>3. Select the checkbox and click on Activate Program button<br>Verify that Programs are activated.</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to verify the generation of the Payments in the Program as a Rebate Analyst</td>
+                            <td><strong>Solution / Answer:</strong> Please follow below steps:<br>1. Navigate to the Program in the Related Items of the Contract and click on 'Payments' in the Related Items section of Programs<br>2. Verify the Number of Payments and Payment status<br>Number of payments = Commitment period/Payment frequency<br>3. Payments Status:<br>- Payments which are in past period: in Due state<br>- Payments which is in Current period: in Active state<br>- Payments which are in future period: in Pending state</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>Sales Lines</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to Load Direct Sales against Contract (using dataflows) such that the sales bucket to the first and second Payments of the Program and process the AdminFee Payment/Incentive Rebate Payments (First payment) to Paid Status</td>
+                            <td><strong>Solution / Answer:</strong> Please follow below steps:<br>1. Upload Direct Sales via 'DirectSaleFromDirectLoader'.<br>2. Make sure that the line(s) loaded are valid and Closed<br>3. Navigate to the first Payment of the Program and verify that the line(s) get bucketed. Verify the calculations are correct. Tier attained based on volume and benefit is calculated as per tier attained value<br>4. Verify the Payment/Payment Package life cycle<br>5. Process and Review the Payment<br>6. Tie the Payment to the Payment Package and take the payment through approval route and pay the Payment. Verify that Payment and Payment Package are in Paid state.</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>Netting</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create contract having two Programs Incentive Rebate and AdminFee and do netting on Incentive rebate Program</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Create Contract Add Two Programs Incentive Rebate and AdminFee<br>2. At Incentive Rebate Program Include the Admin Fee Program in the Netting link<br>3. Implement the contract and load the lines for members and close it<br>4. Navigate to Payment Bucket lines and verify bucketing<br>5. Pay AdminFee Payment<br>6. Access Incentive Payment and take the Payment to InProcess and Verify that Netting is applied on the payment</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>Estimated Payment</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to create Estimated payment and take the Estimated payment to Paid state</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Create New Estimated Payment<br>2. Load the estimated lines<br>3. Take the Estimated payment to Paid state</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>Estimated Payment</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to add the Estimated payment in the Payment package and see the NetAmount on the Payment package</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Take the Payment which has some amount calculated<br>2. Take the payment to the Inprocess and tie it to the Payment package<br>3. Add the estimated Payment (which is paid) to Payment package<br>4. Take the Payment package to the paid state<br>Verify the NetAmount at payment package general page<br>NetAmount = Total PaymentAmount - Estimated PaymentAmount</td>
+                        </tr>
+                        <tr>
+                            <td>Chargeback</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to verify the claim made by the wholesaler with regards to the products and making the payment for the same</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1) Create a Contract with distribution method as "Indirect".<br>2) Add the Customer, Products (Price Programs)<br>3) Add Parent Wholesaler to the contract<br>4) Give necessary commitments and implement the contract<br>5) Upload indirect lines<br>6) Verify the submission has no validation messages and follow the Claim life cycle to make payment to the wholesaler</td>
+                        </tr>
+                        <tr>
+                            <td>Chargeback</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to correct the incorrect details sent by the wholesaler through a resubmission of the same line by rectifying the errors.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1) Upload an indirect line for the contract created in scenario 1 with errors and close the line.<br>2) Resubmit and verify the adjustment status<br>3) Process the Replacement line as required</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Incorrect amount getting calculated in Rebate Program</td>
+                            <td><strong>Root Cause:</strong> Issues with Filters.<br><strong>Troubleshooting Steps:</strong> Go to Rebate Program and see the filters of the type of lines to be bucketed for Rebate Program.<br><strong>Solution / Answer:</strong><br>1. Go To Rebate &gt; Rebate Program.<br>2. Search for Program ID.<br>3. Go to filters and remove any filters for bucketing on lines.<br>4. Do a recalculation.</td>
+                        </tr>
+                        <tr>
+                            <td>Rebate</td>
+                            <td>-</td>
+                            <td><span class="badge badge-issue">Issue</span></td>
+                            <td>Not able to tie Rebate Programs to payment package</td>
+                            <td><strong>Root Cause:</strong> The Rebate Programs are in draft state.<br><strong>Troubleshooting Steps:</strong> Go to Rebate Program and see the status of Rebate Program.<br><strong>Solution / Answer:</strong><br>1. Go to Rebate &gt; Rebate Program.<br>2. Process the Rebate Program and do recalculation.<br>3. The Program is moved to Active stage.<br>4. Now the Rebate Program can be tied with Payment.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Government Pricing HOW To -->
+            <h3>Government Pricing</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Sub Area</th>
+                            <th>Issue / Question</th>
+                            <th>Description</th>
+                            <th>Root Cause, Troubleshooting Steps and Solution / Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>Price Types</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>For an existing draft MAMP price-type, how to Verify datasources, Formulas, and add filters and validations and Activate the pricetype.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow below steps:<br>1. Go to Government pricing &gt; Price type<br>2. Select draft monthly AMP price type<br>3. In the left navigation, click on data source filters<br>4. Select direct sales filter<br>5. Add expression and add COT filter on direct sales<br>6. Save and activate the price type with prior date.</td>
+                        </tr>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>Workbooks and Calculations</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to open a new workbook. Provide the MAMP workbook details like name, month, year, data cutoff date and select the active AMP monthly pricetype and create the workbook for either all products or restricted products.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow below steps:<br>1. Go-to government pricing &gt; new workbook<br>2. Fill the details and select AMP monthly<br>3. Verify that the data is populated under calculation basis data sources and the workbook is in Calculation necessary state.</td>
+                        </tr>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>Workbooks and Calculations</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>For an existing workbook which is in calculation necessary state, how to verify that data is available in calc. basis and then calculate the workbook.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow below steps:<br>1. Calculate the workbook (Read only &gt; Calculate)<br>2. Ensure that the workbook is in calculation valid or in Calculation complete with errors status</td>
+                        </tr>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>Workbooks and Calculations</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to Open existing workbook in Calculation necessary status, and check for the excluded lines for one of the NDCs and verify that the filters applied in the pricetype satisfy the condition.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Go-to government pricing &gt; workbook<br>2. Open existing workbook in Calculation necessary status<br>3. Check for the excluded lines in the calculation basis data source (direct sales)<br>4. Export the excluded lines<br>5. Go-to price type for this workbook. Verify the filters applied for the price type and identify that the exported lines satisfy the condition.</td>
+                        </tr>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to Open existing workbook in Calculation necessary status, Identify the workbook calculation period and one of the NDC in the Calculation basis data source (direct sales). Import direct sales and update Datacutoff date.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Go-to government pricing &gt; workbook<br>2. Open existing workbook in Calculation necessary status<br>3. Identify the workbook calculation period and one of the NDC in the Calculation basis data source (direct sales)<br>4. Go-to Administrator &gt; Data-flows &gt; data-flows<br>5. Import direct sales for the above product with invoice date within the workbook calculation date and ensure that the direct sale lines are in closed status<br>6. Go back to the workbook and update the data cutoff date and recalculate the workbook<br>7. Verify in the calculation basis data source (direct sales) that the above imported sale line is included.</td>
+                        </tr>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to verify that MAMP Calculation validations are processed. Verify all the unresolved exceptions can be overridden if it is in calculation completes with errors state.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Go-to government pricing &gt; workbook<br>2. Open existing workbook in calculation complete with error status<br>3. In the NDC9 Calc. results, search for the NDC9 with errors.<br>4. Open the error and verify that the error is populated.<br>5. Check the NDCs and go-to update lines &gt; Accept/Override<br>6. Select Action as override and give override value and comments<br>7. Verify all the unresolved exceptions are overridden with the new values<br>8. Refresh the page and observe that the workbook status changes to calculation valid</td>
+                        </tr>
+                        <tr>
+                            <td>Government Pricing</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to Exclude few transactions for a specific NDC# manually and calculate the workbook again. Verify that AMP$/Unit value in NDC11 results for that NDC# changes.</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Go-to government pricing &gt; workbook<br>2. Open existing workbook in Calculation valid or calculation complete with error status<br>3. In the NDC11 Calc. results, Record the AMP$/Unit value for one of the NDC<br>4. Exclude few transactions for the above specific NDC# manually<br>5. Save the workbook file and recalculate (click read-only &amp; calculate)<br>6. Verify that AMP$/Unit value in NDC11 results for that NDC# changes<br>7. Check the Excluded transactions are not displayed in the corresponding calc basis drilldown for the same NDC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Reports HOW To -->
+            <h3>Reports</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Sub Area</th>
+                            <th>Issue / Question</th>
+                            <th>Description</th>
+                            <th>Root Cause, Troubleshooting Steps and Solution / Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Reports</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to generate a Customer Status Report</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Reports Module by clicking, Analytics &gt; Business Intelligence. Click on Content<br>2. Search for "Customer Status"<br>3. Select the appropriate fields and Click Run Report. Click Ok<br>4. Save the Report<br><br><em>Note: This will generate the report with default format and prompts. To Generate the report for custom prompts/inputs:</em><br>1. Click on the three dots on right hand side or click on the action menu<br>2. Click on "Run As"<br>3. Enable "prompt me" and "run on background"; select desired output format<br>4. Click Run<br>5. In the next screen, enter Input Values as required.<br>6. The report will be delivered based on input values and selected delivery method opted earlier.</td>
+                        </tr>
+                        <tr>
+                            <td>Reports</td>
+                            <td>-</td>
+                            <td><span class="badge badge-question">Question</span></td>
+                            <td>How to generate a "Rebate Payment" Report</td>
+                            <td><strong>Solution / Answer:</strong> Please follow the below steps:<br>1. Navigate to Reports Module by clicking, Analytics &gt; Business Intelligence. Click on Content<br>2. Search for "Rebate Payment"<br>3. Select the appropriate fields and Click Run Report. Click Ok<br>4. Save the Report<br><br><em>Note: This will generate the report with default format and prompts. To Generate the report for custom prompts/inputs:</em><br>1. Click on the three dots on right hand side or click on the action menu<br>2. Click on "Run As"<br>3. Enable "prompt me" and "run on background"; select desired output format<br>4. Click Run<br>5. In the next screen, enter Input Values as required.<br>6. The report will be delivered based on input values and selected delivery method opted earlier.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; Modal N Wiki - Revenue Management System Knowledge Base</p>
+    </div>
+
+</body>
+</html>
